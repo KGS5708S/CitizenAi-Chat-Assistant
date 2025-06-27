@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Chat - CitizenAI{% endblock %}
 {% block content %}
-
 <h2>Hello, {{ username }}</h2>
-
 <!-- Chat Section -->
 <section class="chat-section">
   <h2>Ask the Assistant</h2>
@@ -12,26 +10,25 @@
     <input type="text" id="question" name="question" required />
     <button type="submit">Submit</button>
   </form>
-
-  {% if question_response %}
   <div class="response">
     <h3>Response:</h3>
     <div class="response-text">
-      {{ question_response | safe }}
+      {% if question_response %}
+        {{ question_response | safe }}
+      {% else %}
+        No response yet. Please ask a question.
+      {% endif %}
     </div>
   </div>
-  {% endif %}
 </section>
-
 <!-- Sentiment Analysis Section -->
 <section class="sentiment-section">
   <h2>Feedback Sentiment</h2>
   <form action="/feedback" method="POST">
     <label for="feedback">Enter Feedback for Sentiment:</label>
-    <textarea id="feedback" name="feedback" rows="4"></textarea>
+    <textarea id="feedback" name="feedback" rows="4" required></textarea>
     <button type="submit">Submit</button>
   </form>
-
   {% if sentiment %}
   <div class="response">
     <h3>Sentiment:</h3>
@@ -39,16 +36,14 @@
   </div>
   {% endif %}
 </section>
-
 <!-- Concern Submission Section -->
 <section class="concern-section">
   <h2>Report a Concern</h2>
   <form action="/concern" method="POST">
     <label for="concern">Describe Your Concern (for Issue Identification):</label>
-    <textarea id="concern" name="concern" rows="4"></textarea>
+    <textarea id="concern" name="concern" rows="4" required></textarea>
     <button type="submit">Submit</button>
   </form>
-
   {% if concern_submitted %}
   <div class="response">
     <h3>Concern Submitted:</h3>
@@ -56,20 +51,18 @@
   </div>
   {% endif %}
 </section>
-
 <style>
   section {
     margin-top: 2rem;
   }
-
   input[type="text"], textarea {
     width: 100%;
     padding: 0.6rem;
     margin-top: 0.4rem;
     border-radius: 5px;
     border: 1px solid #aaa;
+    box-sizing: border-box;
   }
-
   button {
     margin-top: 0.6rem;
     padding: 0.5rem 1rem;
@@ -80,16 +73,17 @@
     cursor: pointer;
   }
 
+  button:hover {
+    background-color: #0056b3;
+  }
   .response {
     margin-top: 1rem;
     background-color: #f1f1f1;
     padding: 1rem;
     border-radius: 6px;
   }
-
   h3 {
     margin-bottom: 0.5rem;
   }
 </style>
-
 {% endblock %}
