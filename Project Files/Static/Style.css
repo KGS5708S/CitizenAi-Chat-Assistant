@@ -81,15 +81,4 @@ p#error {
     color: #e63946;
     font-weight: bold;
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-    nav a {
-        margin: 0 0.75rem;
-    }
-
-    .container {
-        padding: 1.5rem;
-        margin: 2rem 1rem;
-    }
 }
