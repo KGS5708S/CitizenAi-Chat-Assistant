@@ -65,7 +65,7 @@ def chat():
     if request.method == "POST":
         question = request.form.get("question")
         if not question:
-            session["question_response"] = "⚠️ No question provided."
+            session["question_response"] = " No question provided."
         else:
             ai_response = granite_generate_response(question)
             session["question_response"] = ai_response
