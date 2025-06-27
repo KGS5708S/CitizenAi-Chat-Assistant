@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CitizenAI - Empowering Citizens Through AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <h1 class="logo">Welcome to CitizenAI</h1>
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="/chat">Chat</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Empowering Citizens Through <span class="highlight">AI</span></h2>
+            <p>
+                CitizenAI is your intelligent assistant for civic engagement. From accessing services to sharing feedback,
+                our AI-powered platform helps citizens and governments communicate better—anytime, anywhere.
+            </p>
+            <a href="/chat" class="btn">Get Started</a>
+            <p class="subtext">Join us in building a smarter, more responsive civic environment.</p>
+        </div>
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='Citizenui.jpg') }}" alt="AI and code" />
+        </div>
+    </section>
+</body>
+</html>

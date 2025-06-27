@@ -1,0 +1,51 @@
+
+{% extends "base.html" %}
+{% block title %}Dashboard - CitizenAI{% endblock %}
+{% block content %}
+    <h2>Dashboard</h2>
+    <p>Welcome, {{ username }}! Here's your citizen sentiment overview.</p>
+
+    <canvas id="sentimentChart" width="400" height="300"></canvas>
+
+    <script>
+        const ctx = document.getElementById('sentimentChart').getContext('2d');
+        const sentimentChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Positive', 'Neutral', 'Negative'],
+                datasets: [{
+                    label: 'Sentiment Analysis',
+                    data: [
+    {{ sentiment_data.positive }},
+    {{ sentiment_data.neutral }},
+    {{ sentiment_data.negative }}
+],
+,  
+                    backgroundColor: [
+                        'rgba(40, 167, 69, 0.7)',    // green
+                        'rgba(255, 193, 7, 0.7)',    // yellow
+                        'rgba(220, 53, 69, 0.7)'     // red
+                    ],
+                    borderColor: [
+                        'rgba(40, 167, 69, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(220, 53, 69, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Citizen Sentiment Distribution'
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
