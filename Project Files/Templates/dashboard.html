@@ -1,51 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Citizen AI</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/dashboard" class="logo">Citizen AI</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/chat">Chat</a></li>
+                        <li><a href="/feedback">Feedback</a></li>
+                        <li><a href="/admin">Admin</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-{% extends "base.html" %}
-{% block title %}Dashboard - CitizenAI{% endblock %}
-{% block content %}
-    <h2>Dashboard</h2>
-    <p>Welcome, {{ username }}! Here's your citizen sentiment overview.</p>
+    <main>
+        <div class="container">
+            <div class="hero" style="padding: 2rem 0;">
+                <h1>Welcome, {{ user.full_name }}!</h1>
+                <p>Your AI-powered gateway to Indian government services</p>
+            </div>
 
-    <canvas id="sentimentChart" width="400" height="300"></canvas>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>🤖 AI Chat Assistant</h3>
+                    <p>Get instant answers to your queries about government services, laws, and civic procedures.</p>
+                    <a href="/chat" class="btn" style="margin-top: 1rem;">Start Chatting</a>
+                </div>
 
-    <script>
-        const ctx = document.getElementById('sentimentChart').getContext('2d');
-        const sentimentChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Positive', 'Neutral', 'Negative'],
-                datasets: [{
-                    label: 'Sentiment Analysis',
-                    data: [
-    {{ sentiment_data.positive }},
-    {{ sentiment_data.neutral }},
-    {{ sentiment_data.negative }}
-],
-,  
-                    backgroundColor: [
-                        'rgba(40, 167, 69, 0.7)',    // green
-                        'rgba(255, 193, 7, 0.7)',    // yellow
-                        'rgba(220, 53, 69, 0.7)'     // red
-                    ],
-                    borderColor: [
-                        'rgba(40, 167, 69, 1)',
-                        'rgba(255, 193, 7, 1)',
-                        'rgba(220, 53, 69, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Citizen Sentiment Distribution'
-                    }
-                }
-            }
-        });
-    </script>
-{% endblock %}
+                <div class="dashboard-card">
+                    <h3>📝 Share Feedback</h3>
+                    <p>Help us improve services by sharing your experience and feedback.</p>
+                    <a href="/feedback" class="btn" style="margin-top: 1rem;">Give Feedback</a>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>📊 Service Analytics</h3>
+                    <p>View insights and analytics about citizen services and feedback.</p>
+                    <a href="/admin" class="btn" style="margin-top: 1rem;">View Analytics</a>
+                </div>
+            </div>
+
+            {% if chat_history %}
+            <div class="card full-card">
+                <div class="chat-history">
+                    <h3>Recent Conversations</h3>
+                    {% for chat in chat_history %}
+                    <div class="history-item">
+                        <div class="history-date">{{ chat[2] }}</div>
+                        <div class="history-question"><strong>You:</strong> {{ chat[0] }}</div>
+                        <div class="history-answer"><strong>AI:</strong> {{ chat[1][:150] }}{% if chat[1]|length > 150 %}...{% endif %}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Citizen AI. Empowering Indian Citizens with AI Technology.</p>
+        </div>
+    </footer>
+</body>
+</html>
